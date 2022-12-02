@@ -47,5 +47,6 @@ for line in f:
         continue
     count_clories += int(line.strip())
 
+f.close()
 
 print(max(list_elves_calories)) # // 68467
