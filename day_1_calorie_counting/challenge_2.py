@@ -41,5 +41,5 @@ list_elves_calories.pop(list_elves_calories.index(second_highest_calorie_elf))
 third_highest_calorie_elf = max(list_elves_calories)
 print("third_highest_calorie_elf -> ", third_highest_calorie_elf) # // 66810
 
-total_max_calories = first_highest_calorie_elf + third_highest_calorie_elf + third_highest_calorie_elf
+total_max_calories = first_highest_calorie_elf + second_highest_calorie_elf + third_highest_calorie_elf
 print("total_max_calories -> ", total_max_calories) # // 203420
