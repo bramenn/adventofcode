@@ -100,16 +100,12 @@ def hand_result(hand_1: str,  hand_2: str)-> int:
 
     result = 0
     if _hand_1["lost_with"] == hand_2: # LOST
-        # print(f"LOST[0] {_hand_1['name']}[{_hand_1['value']}] :: {_hand_2['name']}[{_hand_2['value']}]")
         result = 0
     elif _hand_1["name"] == _hand_2["name"]: # DRAW
-        # print(f"DRAW[3] {_hand_1['name']}[{_hand_1['value']}] :: {_hand_2['name']}[{_hand_2['value']}]")
         result = 3
     else: # WIN
-        # print(f"WIN[6] {_hand_1['name']}[{_hand_1['value']}] :: {_hand_2['name']}[{_hand_2['value']}]")
         result = 6
 
-    print("#### -> ", result + int( _hand_1["value"]), "\n")
     return result + int( _hand_1["value"])
 
 for line in f:
@@ -121,6 +117,6 @@ for line in f:
 
 
 
-print("player_counter -> ", player_counter) #
+print("player_counter -> ", player_counter) # 9651
 
 f.close()
