@@ -53,19 +53,15 @@ def hand_result(hand: str, order: str) -> int:
     _hand_1 = data[hand]
     _order = strategy[order]
 
-    counter = 0
-
     if _order["value"] == 6:
         my_hand = data[_hand_1["lost_with"]]
-        counter = 6
     elif _order["value"] == 3:
         my_hand = _hand_1
-        counter = 3
     else:
         my_hand = data[_hand_1["lost_with"]]["lost_with"]
         my_hand = data[my_hand]
 
-    return my_hand["value"] + counter
+    return my_hand["value"] + _order["value"]
 
 
 for line in f:
