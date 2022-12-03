@@ -49,4 +49,4 @@ for line in f:
 
 f.close()
 
-print(max(list_elves_calories)) # // 68467
+print(max(list_elves_calories))  # // 68467

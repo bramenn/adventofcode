@@ -27,19 +27,20 @@ for line in f:
     count_clories += int(line.strip())
 
 
+f.close()
 
-first_highest_calorie_elf = max(list_elves_calories)
-print("first_highest_calorie_elf -> ", first_highest_calorie_elf) # // 68467
+list_elves_calories = sorted(list_elves_calories, reverse=True)
 
-list_elves_calories.pop(list_elves_calories.index(first_highest_calorie_elf))
+first_highest_calorie_elf = list_elves_calories[0]
+second_highest_calorie_elf = list_elves_calories[1]
+third_highest_calorie_elf = list_elves_calories[2]
 
-second_highest_calorie_elf = max(list_elves_calories)
-print("second_highest_calorie_elf -> ", second_highest_calorie_elf) # // 68143
+total_max_calories = (
+    first_highest_calorie_elf + second_highest_calorie_elf + third_highest_calorie_elf
+)
 
-list_elves_calories.pop(list_elves_calories.index(second_highest_calorie_elf))
+print("first_highest_calorie_elf -> ", first_highest_calorie_elf)  # // 68467
+print("second_highest_calorie_elf -> ", second_highest_calorie_elf)  # // 68143
+print("third_highest_calorie_elf -> ", third_highest_calorie_elf)  # // 66810
 
-third_highest_calorie_elf = max(list_elves_calories)
-print("third_highest_calorie_elf -> ", third_highest_calorie_elf) # // 66810
-
-total_max_calories = first_highest_calorie_elf + second_highest_calorie_elf + third_highest_calorie_elf
-print("total_max_calories -> ", total_max_calories) # // 203420
+print("total_max_calories -> ", total_max_calories)  # // 203420

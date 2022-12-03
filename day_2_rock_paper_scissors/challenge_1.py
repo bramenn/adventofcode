@@ -56,57 +56,35 @@ NOTES:
 f = open("moves.txt", "r")
 
 data_hand_1 = {
-    "A": {
-        "name": "Rock",
-        "lost_with": "Y",
-        "value": "1"
-    },
-    "B": {
-        "name": "Paper",
-        "lost_with": "Z",
-        "value": "2"
-    },
-    "C": {
-        "name": "Scissors",
-        "lost_with": "X",
-        "value": "3"
-    },
+    "A": {"name": "Rock", "lost_with": "Y", "value": 1},
+    "B": {"name": "Paper", "lost_with": "Z", "value": 2},
+    "C": {"name": "Scissors", "lost_with": "X", "value": 3},
 }
 
 data_hand_2 = {
-    "X": {
-        "name": "Rock",
-        "lost_with": "B",
-        "value": "1"
-    },
-    "Y": {
-        "name": "Paper",
-        "lost_with": "C",
-        "value": "2"
-    },
-    "Z": {
-        "name": "Scissors",
-        "lost_with": "A",
-        "value": "3"
-    },
+    "X": {"name": "Rock", "lost_with": "B", "value": 1},
+    "Y": {"name": "Paper", "lost_with": "C", "value": 2},
+    "Z": {"name": "Scissors", "lost_with": "A", "value": 3},
 }
 
 player_counter = 0
 
-def hand_result(hand_1: str,  hand_2: str)-> int:
+
+def hand_result(hand_1: str, hand_2: str) -> int:
 
     _hand_1 = data_hand_2[hand_1]
     _hand_2 = data_hand_1[hand_2]
 
     result = 0
-    if _hand_1["lost_with"] == hand_2: # LOST
+    if _hand_1["lost_with"] == hand_2:  # LOST
         result = 0
-    elif _hand_1["name"] == _hand_2["name"]: # DRAW
+    elif _hand_1["name"] == _hand_2["name"]:  # DRAW
         result = 3
-    else: # WIN
+    else:  # WIN
         result = 6
 
-    return result + int( _hand_1["value"])
+    return result + _hand_1["value"]
+
 
 for line in f:
     line = line.replace("\n", "")
@@ -116,7 +94,6 @@ for line in f:
     player_counter += hand_result(player_2_hand, player_1_hand)
 
 
-
-print("player_counter -> ", player_counter) # 9651
+print("player_counter -> ", player_counter)  # 9651
 
 f.close()

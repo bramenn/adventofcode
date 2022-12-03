@@ -34,41 +34,21 @@ NOTES:
 f = open("moves.txt", "r")
 
 data = {
-    "A": {
-        "name": "Rock",
-        "lost_with": "B",
-        "value": 1
-    },
-    "B": {
-        "name": "Paper",
-        "lost_with": "C",
-        "value": 2
-    },
-    "C": {
-        "name": "Scissors",
-        "lost_with": "A",
-        "value": 3
-    },
+    "A": {"name": "Rock", "lost_with": "B", "value": 1},
+    "B": {"name": "Paper", "lost_with": "C", "value": 2},
+    "C": {"name": "Scissors", "lost_with": "A", "value": 3},
 }
 
 strategy = {
-    "X": {
-        "name": "lost",
-        "value": 0
-    },
-    "Y": {
-        "name": "draw",
-        "value": 3
-    },
-    "Z": {
-        "name": "win",
-        "value": 6
-    },
+    "X": {"name": "lost", "value": 0},
+    "Y": {"name": "draw", "value": 3},
+    "Z": {"name": "win", "value": 6},
 }
 
 player_counter = 0
 
-def hand_result(hand: str,  order: str)-> int:
+
+def hand_result(hand: str, order: str) -> int:
 
     _hand_1 = data[hand]
     _order = strategy[order]
@@ -95,7 +75,6 @@ for line in f:
     player_counter += hand_result(player_1_hand, order)
 
 
-
-print("player_counter -> ", player_counter) # 10560
+print("player_counter -> ", player_counter)  # 10560
 
 f.close()
