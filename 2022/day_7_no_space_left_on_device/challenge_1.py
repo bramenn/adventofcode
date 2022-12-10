@@ -102,14 +102,44 @@ of those directories?
 
 """
 
+from __future__ import annotations
+
 from typing import Dict, List
+
+directories: Dict[str, Dir] = {}
+
+
+class Dir:
+
+    path: str
+    sub_dirs: Dict[str, Dir]
+    files: List[int]
+
+    def __init__(self, path: str):
+        self.path = path
+        self.sub_dirs = {}
+        self.files = []
+
+    @property
+    def size(self):
+        counter = 0
+        for sub_dir in self.sub_dirs.values():
+            counter += sub_dir.size
+        return sum(self.files) + counter
+
+    def add_sub_dir(self, dir_name: str):
+        new_dir = Dir(path=self.path + dir_name + "/")
+        self.sub_dirs[dir_name] = new_dir
+        directories[new_dir.path] = new_dir
+
 
 f = open("commands.txt", "r")
 
 
-directories = {}
+current_path = ""
+last_path = ""
+current_dir: Dir = None
 
-current_dir = ""
 
 def is_command(cmd: str) -> (bool, List):
     if cmd.startswith("$"):
@@ -124,70 +154,33 @@ for cmd in f:
     is_cmd, args = is_command(cmd)
 
     if args[0] in ["dir", "ls"]:
+        if args[0] == "dir":
+            current_dir.add_sub_dir(args[1])
         continue
 
     if is_cmd:
         if args[0] == "cd":
             if args[1] == "..":
-                current_dir = current_dir[:-len(args[1])]
+                current_path = "/".join(current_path.split("/")[:-2]) + "/"
+                current_dir = directories[current_path]
                 continue
 
-            current_dir +=  args[1] + ("/" if args[1] != "/" else "")
+            current_path += args[1] + ("/" if args[1] != "/" else "")
 
+            if not current_path in directories:
+                directories[current_path] = Dir(path=current_path)
 
-
-            if not current_dir in directories:
-                directories[current_dir] = 0
-
-
+            current_dir = directories[current_path]
             continue
 
-    directories[current_dir] += int(args[0])
+    current_dir.files.append(int(args[0]))
 
 
-aux_dirs = [a for a in directories.keys()]
+total_size = 0
 
-for k,v in directories.items():
+for path, _dir in directories.items():
+    if _dir.size <= 100000:
+        total_size += _dir.size
 
-    for path in aux_dirs:
-        if k == path:
-            continue
-
-        if path.startswith(k):
-            directories[k] +=  directories[path]
-
-# print(directories)
-
-# total_size = 0
-# for k,v in directories.items():
-
-#     splited = k.split("/")
-#     if len(splited):
-
-#         while len(splited) > 0:
-#             a = "/".join(splited) or "/"
-
-#             if not a.endswith("/"):
-#                 a = a + "/"
-
-#             splited.pop()
-
-#             if a == k:
-#                 continue
-
-#             directories[a] += directories[k]
-
-#             if v < 100000:
-#                 total_size += v
-
-
-total_size_2 = sum([item if item < 100000 else 0 for item in directories.values()])
-
-for k,v in directories.items():
-    if v < 100000:
-        print(k,v)
-
-# print("directories -> ", directories)
-# print("total_size1 -> ", total_size)
-print("total_size2 -> ", total_size_2)
-# f.close()
+print("TOTAL SIZE ->", total_size)
+f.close()
