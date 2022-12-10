@@ -102,7 +102,6 @@ for cmd in f:
     current_dir.files.append(int(args[0]))
 
 
-total_size = 0
 total_size_device = 70000000
 required_size = 30000000
 
