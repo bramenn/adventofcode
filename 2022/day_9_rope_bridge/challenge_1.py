@@ -265,7 +265,87 @@ rope visit at least once?
 
 """
 
-f = open("tasks.txt", "r")
+class Extrem:
+
+    pos_x: int
+    pos_y: int
+
+    boxes_visited: set
+
+    def move(self, x: int, y: int):
+
+        self.boxes_visited.add(f"{x}|{y}")
+        self.pos_x = x
+        self.pos_y = y
 
 
+class Head(Extrem):
+    def __init__(self):
+        self.pos_x = 0
+        self.pos_y = 0
+        self.boxes_visited = set()
+
+
+class Tail(Extrem):
+    def __init__(self):
+        self.pos_x = 0
+        self.pos_y = 0
+        self.boxes_visited = set()
+        self.boxes_visited.add(f"0|0")
+
+
+class Rope:
+
+    head: Head
+    tail: Tail
+
+    def __init__(self):
+        self.head = Head()
+        self.tail = Tail()
+
+    def magnitude_between_head_and_tail(self):
+        print(f"head [{self.head.pos_x},{self.head.pos_y}] -- tail [{self.tail.pos_x},{self.tail.pos_y}] :: {abs(abs(self.head.pos_x) - abs(self.tail.pos_x)) + abs(abs(self.head.pos_y) - abs(self.tail.pos_y))}")
+        return abs(abs(self.head.pos_x) - abs(self.tail.pos_x)) + abs(abs(self.head.pos_y) - abs(self.tail.pos_y))
+
+    def move(self, direction: str):
+        if direction == "U":
+            self.head.move(self.head.pos_x, self.head.pos_y + 1)
+            if self.magnitude_between_head_and_tail() <= 1:
+                    self.tail.move(self.head.pos_x, self.head.pos_y)
+
+        if direction == "D":
+            if self.magnitude_between_head_and_tail() <= 1:
+                    self.tail.move(self.head.pos_x, self.head.pos_y)
+            self.head.move(self.head.pos_x, self.head.pos_y - 1)
+
+        if direction == "R":
+            if self.magnitude_between_head_and_tail() <= 1:
+                    self.tail.move(self.head.pos_x, self.head.pos_y)
+            self.head.move(self.head.pos_x + 1, self.head.pos_y)
+
+        if direction == "L":
+            if self.magnitude_between_head_and_tail() <= 1:
+                    self.tail.move(self.head.pos_x, self.head.pos_y)
+            self.head.move(self.head.pos_x - 1, self.head.pos_y)
+
+
+f = open("moves.txt", "r")
+
+
+rope = Rope()
+
+for move in f:
+    move = move.replace("\n", "")
+
+    direction, steps = move.split(" ")
+    print(move)
+    for i in range(int(steps)):
+        rope.move(direction)
+
+
+
+print("Tail boxes_visited -> ", rope.tail.boxes_visited)
+print("Tail boxes_visited -> ", len(rope.tail.boxes_visited))
 f.close()
+
+# 6497 >>
