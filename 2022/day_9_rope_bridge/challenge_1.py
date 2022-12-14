@@ -263,6 +263,15 @@ So, there are 13 positions the tail visited at least once.
 Simulate your complete hypothetical series of motions. How many positions does the tail of the
 rope visit at least once?
 
+NOTES:
+Las reglas en este ejemplo son las siguientes:
+
+Si la cabeza se mueve lo suficientemente lejos de la cola, la cola se mueve hacia la cabeza.
+Si la cabeza y la cola están en la misma fila o columna y están separadas por una distancia de dos
+ pasos, la cola se mueve un paso en la misma dirección que la cabeza.
+Si la cabeza y la cola no están en la misma fila o columna y no están en contacto,
+la cola se mueve un paso en la diagonal en dirección a la cabeza.
+
 """
 
 class Extrem:
